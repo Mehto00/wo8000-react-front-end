@@ -2,56 +2,53 @@ import React, { Component } from 'react';
 import Header from './Components/Header';
 import About from './Components/About';
 import StationList from './Components/StationList';
-import Station from './Components/Station';
 import './App.css';
 
-class App extends Component {
 
- constructor(){
+
+class App extends Component {
+  constructor(){
     super();
     this.state = {
-      stations: []
+      //Array of station objects comming from Api
+      stations: [
+      {
+       observationId: "", 
+       timestamp: "", 
+       temperature: "",
+       station: "",
+       max: "",
+       min: ""
     }
-  }
+    ]
+ }
+}
 
-  componentWillMount(){
-    this.getApiData();
-  }
-
-  getApiData() {
-    var temp = [];
+componentWillMount(){  
+      // Fetch the json objects presenting data from the latest submits by station
       fetch("http://localhost:8080/weather-app-dev/latest/")
       .then(response => response.json())
       .then(response => {
-
-      var observationId = response.map(function(s) { return s.observationId; });
-      var timestamps = response.map(function(s) { return s.timestamp; });
-      var temperature = response.map(function(s) { return s.temperature; });
-      var stationName = response.map(function(s) { return s.station; });
-      var max = response.map(function(s) { return s.max; });
-      var min = response.map(function(s) { return s.min; });  
-        
-      for (let i = 0; i < response.length; i++) {
-          this.setState({
-            station: [observationId[i], timestamps[i], temperature[i], stationName[i], max[i], min[i]],
-          })  
-        }    
-      })
+       this.setState({
+          // Append response into the this.state.stations array
+          stations: response
+       })
+    })
       .catch(error => {
-       console.log("Error fetching the data", error); 
-       }); 
-  }
+        console.log("Error fetching the data", error); 
+     });
+   }
 
-  render() {
+   render() {
+      return (       
+       <main>
+       <Header /> 
+       <About />
+       <StationList data={this.state.stations}/>
+       </main>
 
-    return (       
-      <main>
-        <Header /> 
-        <About /> 
-        <StationList stationData={this.state.station}/>
-      </main>
-    )
-  }
+       )
+   }
 }
 
 export default App;
