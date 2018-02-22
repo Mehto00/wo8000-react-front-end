@@ -10,56 +10,45 @@ class App extends Component {
  constructor(){
     super();
     this.state = {
-      station: {
-      observationId : [],
-      timestamps : [],
-      temperature : [],
-      stationName : [],
-      max : [],
-      min : []
-    }
+      stations: []
     }
   }
 
   componentWillMount(){
-        var temp = [];
-        fetch("http://localhost:8080/weather-app-dev/latest/")
-        .then(response => response.json())
-        .then(response => {
-
-        var observationId = response.map(function(s) { return s.observationId; });
-        var timestamps = response.map(function(s) { return s.timestamp; });
-        var temperature = response.map(function(s) { return s.temperature; });
-        var stationName = response.map(function(s) { return s.station; });
-        var max = response.map(function(s) { return s.max; });
-        var min = response.map(function(s) { return s.min; });
-          this.setState({
-            station: {
-            observationId: observationId,
-            timestamps : timestamps,
-            temperature : temperature,
-            stationName : stationName,
-            max : max,
-            min : min,
-            }
-          })        
-         })
-        .catch(error => {
-         console.log("Error fetching the data", error); 
-         
-  });     
+    this.getApiData();
   }
 
+  getApiData() {
+    var temp = [];
+      fetch("http://localhost:8080/weather-app-dev/latest/")
+      .then(response => response.json())
+      .then(response => {
+
+      var observationId = response.map(function(s) { return s.observationId; });
+      var timestamps = response.map(function(s) { return s.timestamp; });
+      var temperature = response.map(function(s) { return s.temperature; });
+      var stationName = response.map(function(s) { return s.station; });
+      var max = response.map(function(s) { return s.max; });
+      var min = response.map(function(s) { return s.min; });  
+        
+      for (let i = 0; i < response.length; i++) {
+          this.setState({
+            station: [observationId[i], timestamps[i], temperature[i], stationName[i], max[i], min[i]],
+          })  
+        }    
+      })
+      .catch(error => {
+       console.log("Error fetching the data", error); 
+       }); 
+  }
 
   render() {
 
-    //console.log(this.state.station);
-    return (
+    return (       
       <main>
         <Header /> 
         <About /> 
-        <StationList observationId={this.state.observationId} timestamps={this.state.timestamps} temperature={this.state.temperature} station={this.state.station} max={this.state.max} min={this.state.min}
- />
+        <StationList stationData={this.state.station}/>
       </main>
     )
   }
