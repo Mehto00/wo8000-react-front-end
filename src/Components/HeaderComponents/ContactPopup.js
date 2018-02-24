@@ -4,7 +4,7 @@ const ContactPopup = props => {
     return (
       <div className="showPopups"> 
       <div> 
-      <p className="closePopupCross" onClick={props.closePopup}>&#10006;</p>
+      <p className="closePopupCross">&#10006;</p>
       </div>
 
       <img src="img/meika.png" alt="Meee"/>
