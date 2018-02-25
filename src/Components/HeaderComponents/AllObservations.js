@@ -15,11 +15,11 @@ const AllObservations = props => {
       <div className="showPopups">         
           <div>
             <div>
-            <p class="closePopupCross" onClick={props.closePopup}>&#10006;</p>
+            <p className="closePopupCross" onClick={props.closePopup}>&#10006;</p>
             </div>
           </div>
               
-          <h3 class="content-box-header">All Observations</h3>
+          <h3 className="content-box-header">All Observations</h3>
           
           <div className="headerList">
           <ul className="observationList">

@@ -3,10 +3,34 @@ import ContactPopup from './HeaderComponents/ContactPopup';
 import AllObservations from './HeaderComponents/AllObservations';
 
 class Header extends React.Component {
+    constructor(props){
+      super(props);
+      this.state = {
+      //Initializing the show-popup states
+      showContact: false,
+      showAllObservations: false
+     }
+
+    this.toggleContact = this.toggleContact.bind(this);
+    this.toggleAllObservations = this.toggleAllObservations.bind(this);
+    } 
     
+    toggleAllObservations() {
+      this.setState({
+        showAllObservations: !this.state.showAllObservations
+      })
+    }
+
+    toggleContact() {
+      this.setState({
+        showContact: !this.showContact
+      })
+    }
+    
+      
     render() { 
      return (
-        <header>
+      <header>
         <h1>WEATHER OBSERVATOR 8000</h1>
         <div className="popups">
         <div id="observationsBox" className=""></div>
@@ -14,26 +38,21 @@ class Header extends React.Component {
         </div>
         <nav className="mainNav">
         <ul>
-        <li><a href="#" className="openAllObservations" onClick={this.props.toggleAllObservations.bind(this)}
->All Observations</a></li>
-        <li><a href="#" id="openContact" onClick={this.props.toggleContact.bind(this)}>Contact</a></li>
+        <li><a href="#" className="openAllObservations" onClick={this.toggleAllObservations} >All Observations</a></li>
+        <li><a href="#" id="openContact" onClick={this.toggleContact} >Contact</a></li>
         </ul>
         </nav>
-
-        {
-          this.props.showContact ? 
-          <ContactPopup 
-          />
-          : null
+                
+        {this.state.showContact ? 
+            <ContactPopup closePopup={ this.toggleContact.bind(this) }
+            />
+            : null
         }
 
-        {
-          this.props.showAllObservations ? 
-          <AllObservations observations={this.props.observations} />
+        {this.state.showAllObservations ? 
+          <AllObservations closePopup={ this.toggleAllObservations.bind(this) } observations={this.props.observations} />
           : null
         }
-
-
 
         </header> 
         )

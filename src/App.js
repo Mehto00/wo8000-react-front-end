@@ -7,13 +7,11 @@ import AllObservations from './Components/HeaderComponents/AllObservations';
 import './App.css';
 
 class App extends Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
       //Initializing the show-popup states
       showSubmitForm: false,
-      showContact: false,
-      showAllObservations: false,
       //Array of station objects comming from Api
       stations: [
       {
@@ -36,29 +34,10 @@ class App extends Component {
      }
      ]
     } // this.state{}    
-    this.showContact = this.toggleContact.bind(this);
-    this.showAllObservations = this.toggleAllObservations.bind(this);
+    
   }
 
-    toggleForm() {
-      this.setState({
-        showSubmitForm: !this.state.showSubmitForm
-      });
-    }
-
-    toggleContact() {
-      this.setState({
-        showContact: !this.state.showContact
-      });
-    }
-
-    toggleAllObservations() {
-      this.setState({
-        showAllObservations: !this.state.showAllObservations
-      });
-    }
-
-componentWillMount(){  
+  componentWillMount(){  
       // Fetch the json objects presenting data from the latest submits by station
       fetch("http://localhost:8080/weather-app-dev/latest/")
       .then(response => response.json())
@@ -86,21 +65,19 @@ componentWillMount(){
       });
    }
 
+    toggleForm() {
+      this.setState({
+        showSubmitForm: !this.state.showSubmitForm
+      });
+    }
+
    render() {
+    
       return (       
       <main>
       
       <Header 
-        observations={ this.state.observations } 
-        
-        toggleContact={ this.toggleContact } 
-        toggleAllObservations={ this.toggleAllObservations }
-        
-        showContact={ this.state.showContact }
-        showAllObservations={ this.state.showAllObservations }
-        
-        closeContact={ this.showContact.bind(this) }
-        closeAllObservations={ this.showAllObservations.bind(this) }
+        observations = { this.state.observations } 
       /> 
       
       <section id="about">
@@ -118,6 +95,7 @@ componentWillMount(){
         : null
       }
 
+      
       </main>
 
      )
