@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import Header from './Components/Header';
 import StationList from './Components/StationList';
 import SubmitForm from './Components/SubmitForm';
-import ContactPopup from './Components/HeaderComponents/ContactPopup';
-import AllObservations from './Components/HeaderComponents/AllObservations';
 import './App.css';
 
 class App extends Component {
+  
   constructor(){
     super();
     this.state = {
@@ -35,9 +34,15 @@ class App extends Component {
      ]
     } // this.state{}    
     
+    this.getData = this.getData.bind(this)
+    this.toggleForm = this.toggleForm.bind(this)
   }
-
-  componentWillMount(){  
+    componentWillMount(){ 
+      this.getData()
+    }
+    
+    getData() {
+      console.log("fetching data from API with GET");
       // Fetch the json objects presenting data from the latest submits by station
       fetch("http://localhost:8080/weather-app-dev/latest/")
       .then(response => response.json())
@@ -57,13 +62,13 @@ class App extends Component {
       .then(response => {
         this.setState({
           // Append response into the this.state.observations array
-          observations: response
+          observations: response.reverse()
         })            
       })
       .catch(error => {
         console.log("Error fetching the data", error); 
       });
-   }
+    }
 
     toggleForm() {
       this.setState({
@@ -72,7 +77,6 @@ class App extends Component {
     }
 
    render() {
-    
       return (       
       <main>
       
@@ -83,19 +87,18 @@ class App extends Component {
       <section id="about">
         <h2>Here's WEATHER OBSERVATOR 8000</h2>
         <p>You can submit your weather observations via form to some pre-given stations. Observations are saved to a database and submission automatically updates the view with latest observation.
-        From <a href="#" className="openObservationsList">all observations</a> you get to a pop-up list of all the observations submitted.</p>
+        From all observations you get to a pop-up list of all the observations submitted.</p>
         <button className="btn" onClick={this.toggleForm.bind(this)}>Open form</button>
       </section>
 
       <StationList data={ this.state.stations }/>
        
       {this.state.showSubmitForm ? 
-        <SubmitForm closePopup={ this.toggleForm.bind(this) } data={this.state.stations}
+        <SubmitForm closePopup={ this.toggleForm } updateData={ this.getData.bind(this)} formState={this.state.showSubmitForm}
         />
         : null
       }
 
-      
       </main>
 
      )

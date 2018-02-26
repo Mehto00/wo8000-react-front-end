@@ -2,7 +2,7 @@ import React from 'react';
 import Observation from './Observation';
 
 const AllObservations = props => {
-    const results = props.observations.reverse();
+    const results = props.observations
 
     // Map reverst results into single Observations
     const Observations = ({results}) => (

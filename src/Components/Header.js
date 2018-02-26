@@ -23,7 +23,7 @@ class Header extends React.Component {
 
     toggleContact() {
       this.setState({
-        showContact: !this.showContact
+        showContact: !this.state.showContact
       })
     }
     
@@ -39,7 +39,7 @@ class Header extends React.Component {
         <nav className="mainNav">
         <ul>
         <li><a href="#" className="openAllObservations" onClick={this.toggleAllObservations} >All Observations</a></li>
-        <li><a href="#" id="openContact" onClick={this.toggleContact} >Contact</a></li>
+        <li><a href="#" className="openContact" onClick={this.toggleContact} >Contact</a></li>
         </ul>
         </nav>
                 
