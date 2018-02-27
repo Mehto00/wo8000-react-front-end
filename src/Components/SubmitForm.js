@@ -41,24 +41,24 @@ class SubmitForm extends Component {
     }
 
     // Check if all the form fields has value before submitting
-    if (!this.state.stationSelected || !this.state.tempScale || !this.state.temperature) {
+    if (this.state.stationSelected === false || this.state.tempScale === false || this.state.temperature === '') {
         // Dislpay error message and add red box as styling
         document.querySelector("#submitInfo").classList.add("submitError");
         document.querySelector("#submitText").innerHTML = "All fields are mandatory";
-    } 
+    } else {  
+      const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
     
-    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-    
-    let PostThePost = new Promise((doThis) => {
-      doThis(this.postData(fd))
-    });
-    
-    if (this.state.stationSelected && this.state.tempScale && this.state.temperature !== ''){
-    PostThePost.then(() => wait(3000))
-    .then(this.props.closePopup)
-    .then(this.props.updateData)
-  }
-  } // END OF else {fetch(postObservation, ..}
+      /* Create a new Promise for posting the data with fetch and then firing
+      a setTimeout to wait 3 seconds before closing the form and updating the stations to the latest*/
+      let PostThePost = new Promise((doThis) => {
+        doThis(this.postData(fd))
+      });
+
+      PostThePost.then(() => wait(3000))
+      .then(this.props.closePopup)
+      .then(this.props.updateData)
+    } // else
+  } // handleSubmit(event)
 
   postData(PassedFormData) { 
    fetch("http://localhost:8080/weather-app-dev/observations", {
