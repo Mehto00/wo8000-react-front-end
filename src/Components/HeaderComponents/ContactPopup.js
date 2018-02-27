@@ -17,7 +17,7 @@ const ContactPopup = props => {
       <ul>
       <li className="contactLinks"><a href="http://www.linkedin.com/in/mikkometso/" rel="noopener noreferrer" target="_blank" >You can find my Linkedin profile from here</a>.</li><br />
       <li className="contactLinks"><a href="https://github.com/Mehto00/weather-observator-8000" rel="noopener noreferrer" target="_blank" >And the Github repository of backend API done with Spring here</a>.</li><br />
-      <li className="contactLinks"><a href="https://github.com/Mehto00/weather-observator-8000" rel="noopener noreferrer" target="_blank" >And the Github repository of React front end from here</a>.</li><br />
+      <li className="contactLinks"><a href="https://github.com/Mehto00/wo8000-react-front-end" rel="noopener noreferrer" target="_blank" >And the Github repository of React front end from here</a>.</li><br />
       </ul><br />
 
       <p> You can always reach out to me via LinkedIn Messages or <br />emailing to me at mikkosanterimetso@gmail.com</p>
