@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from './Components/Header';
 import StationList from './Components/StationList';
 import SubmitForm from './Components/SubmitForm';
-import './App.css';
 
 class App extends Component {
   
