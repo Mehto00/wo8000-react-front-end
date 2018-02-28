@@ -30,8 +30,8 @@ class SubmitForm extends Component {
     event.preventDefault()
     
     let fd = new FormData();
-    fd.set("station", this.state.stationSelected)
-    fd.set("temperature", this.state.temperature)
+    fd.append("station", this.state.stationSelected)
+    fd.append("temperature", this.state.temperature)
 
     //Check if user submitted fahrenheit and convert to celsius
     if (this.state.tempScale === "fahrenheit" && this.state.temperature !== "") {
